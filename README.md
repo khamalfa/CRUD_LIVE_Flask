@@ -1,5 +1,6 @@
 # CRUD_LIVE_Flask
 live/instant crud for highly updatable website and data.
+see the demo app : https://youtu.be/K2LdLTFiqYk
 
 ## requirements :
 1. python 3.7
