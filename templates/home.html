@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script type = "text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script type = "text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type = "text/javascript"  src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+    <script type = "text/javascript"  src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type = "text/javascript"  src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type = "text/javascript"  src="https://cdn.datatables.net/plug-ins/1.10.15/dataRender/datetime.js"></script>
+	<meta charset="utf-8">
+
+	<title>LIS PENDS</title>
+</head>
+<body style="font-size: 13px;">
+
+	<div class="card">
+		<div class="card-body">
+			<form method="POST">
+				<textarea class="form-control" rows="5" name="user_csv"></textarea>
+				<button class="btn btn-success mt-2">Process</button>
+			</form>
+
+			<div class="mt-4">
+				<table id="proxies" class="table responsive table-striped table-bordered" style="width:100%">
+					<thead>
+						<tr>
+							{% for header in colnames%}
+								<th>{{header}}</th>
+							{% endfor %}
+						</tr>
+					</thead>
+					<tbody>
+						{% for row in results%}
+							<tr>
+								<td>{{row['name']}}</td> 
+								<td>{{row['address']}}</td>
+								<td>{{row['city']}}</td>
+								<td>{{row['county']}}</td>
+								<td>{{row['sales_date']}}</td>
+
+								{% if row['status'] == 'Cancelled'%}
+									<td><button style="font-size: 10px;" type="button" class="btn btn-danger btn-sm">{{row['status']}}</button></td>
+								{% elif row['status'] == 'Scheduled'%}
+									<td><button style="font-size: 10px;" type="button" class="btn btn-success btn-sm">{{row['status']}}</button></td>
+								{% else %}
+									<td><button style="font-size: 10px;" type="button" class="btn btn-info btn-sm">{{row['status']}}</button></td>
+								{%endif%}
+								
+								<td>{{row['last_edited']}}</td>
+								<td>{{row['link']}}</td>
+							</tr>
+						
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+<script type="text/javascript">
+$('#proxies').dataTable( {
+  order: [[6, 'desc']]
+} );
+</script>
+
+</html>
